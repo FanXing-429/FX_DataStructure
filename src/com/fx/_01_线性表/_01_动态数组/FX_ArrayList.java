@@ -1,11 +1,14 @@
-package com.fx;
+package com.fx._01_线性表._01_动态数组;
+
+import com.fx._01_线性表.Inrterface.List;
+import com.fx._01_线性表.abstractClass.AbstractList;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class FX_ArrayList<E> implements ArrayListInterface<E> {
+public class FX_ArrayList<E> extends AbstractList<E> {
     // 动态数组的属性
-    private int size;
+//    private int size; 在AbstractList中已经声明了
     private E[] elements;
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -26,43 +29,6 @@ public class FX_ArrayList<E> implements ArrayListInterface<E> {
     // 动态数组所要实现的对外提供的方法
 
     /**
-     *
-     * @return 数组中元素的个数
-     */
-    @Override
-    public int size() {
-        return this.size;
-    }
-
-    /**
-     *
-     * @return 数组是否为空
-     */
-    @Override
-    public boolean isEmpty() {
-        return this.size == 0;
-    }
-
-    /**
-     *
-     * @param element
-     * @return 是否存在传入的元素
-     */
-    @Override
-    public boolean contains(E element) {
-        // 这样判断是因为 null.equals 会是空指针异常
-        if (element == null) {
-            for (int i = 0; i < size; i++) {
-                if (elements[i] == null) return true;
-            }
-        }
-        for (int i = 0; i < size; i++) {
-            if (elements[i].equals(element)) return true;
-        }
-        return false;
-    }
-
-    /**
      * 在特定位置添加元素
      * @param index
      * @param element
@@ -81,15 +47,6 @@ public class FX_ArrayList<E> implements ArrayListInterface<E> {
         size++;
     }
 
-
-    /**
-     * 不指定位置，则在末尾添加元素
-     * @param element
-     */
-    @Override
-    public void add(E element) {
-        add(size,element);
-    }
 
     /**
      * 通过索引获得数组中相应位置上的元素
@@ -183,26 +140,6 @@ public class FX_ArrayList<E> implements ArrayListInterface<E> {
     }
 
     // 封装的一些内部使用的方法
-
-    /**
-     * 判断传入add方法中的index参数是否合法
-     */
-    private void rangeCheckForAdd(int index) {
-        if (index < 0 || index > this.size) {
-            throw new IllegalArgumentException("传入的参数有误");
-        }
-    }
-
-    /**
-     * 判断传入的index是否合法
-     * @param index
-     */
-    private void rangeCheck(int index) {
-        if (index < 0 || index > this.size - 1) {
-            throw new IllegalArgumentException("传入的参数有误");
-        }
-    }
-
     /**
      * 判断是否需要进行扩容
      */
@@ -212,6 +149,11 @@ public class FX_ArrayList<E> implements ArrayListInterface<E> {
         }
     }
 
+    /**
+     * 进行扩容操作
+     * @param elements
+     * @return
+     */
     private E[] copyAndAdd(Object[] elements) {
         Object[] newElements = new Object[elements.length + (elements.length >> 1)];
         for (int i = 0; i < size; i++) {

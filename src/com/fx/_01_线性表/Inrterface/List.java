@@ -1,8 +1,6 @@
-package com.fx;
+package com.fx._01_线性表.Inrterface;
 
-import java.util.ArrayList;
-
-public interface ArrayListInterface<E> {
+public interface List<E> {
     int size(); // 元素的数量
     boolean isEmpty(); // 是否为空
     boolean contains(E element); // 是否包含某个元素
